@@ -7,9 +7,8 @@ from repository.TwitterGraphRepository import TwitterGraphDAO
 from service.GraphService import GraphService
 app = Flask(__name__)
 CORS(app)
-
 neo4J=Neo4J()
-twitterGraphDAO=TwitterGraphDAO(neo4J)
+twitterGraphDAO=TwitterGraphDAO(neo4J.getConnection())
 graphService=GraphService(twitterGraphDAO)
 
 @app.route('/recommendTweetsToUser', methods=['POST'])
@@ -18,24 +17,25 @@ def recommendTweetsToUser():
     inputData = request.get_json()
     user= inputData.get('userName', 'rotnroll666')
     try:
-        return jsonify(graphService.recommendTweets(user))
+        result=graphService.recommendTweets(user)
+        return jsonify(result.jsonfyResponse())
     except Exception as e:
         responseObject.setResponseStatus(False)
         responseObject.setResponseMessage("Could not process the request. Please try again later.")
-        return jsonify(json.dumps(responseObject.__dict__, indent=4))
-
+        return jsonify(responseObject.jsonfyResponse())
 @app.route('/recommendUser', methods=['POST'])
 def recommendUsersForFollowing():
     responseObject=ResponseObject()
     inputData = request.get_json()
-    user= inputData.get('userName', 'rotnroll666')
+    user= inputData.get('userName', 'MySQL')
     try:
-        return jsonify(graphService.recommendUsersForFollowing(user))
+        result=graphService.recommendUsersForFollowing(user)
+        return jsonify(result.jsonfyResponse())
     except Exception as e:
         responseObject.setResponseStatus(False)
         responseObject.setResponseMessage("Could not process the request. Please try again later.")
-        return jsonify(json.dumps(responseObject.__dict__, indent=4))
+        return jsonify(responseObject.jsonfyResponse())
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

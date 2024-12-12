@@ -26,7 +26,7 @@ class GraphService:
         else:
             responseObject.setResponseStatus(True)
             responseObject.setResponseMessage("Tweets recommended")
-            responseObject.setBody(recommendTweets.to_json(orient='records'))
+            responseObject.setBody(json.dumps(recommendTweets.to_dict(orient='records')))
 
         return responseObject
 
@@ -53,10 +53,10 @@ class GraphService:
 
 
 # if __name__=="__main__":
-    # connection = Neo4J().getConnection()
-    # twitterGraphDAO=TwitterGraphDAO(connection)
-    # graphService=GraphService(twitterGraphDAO)
-    # result=graphService.recommendTweets("rotnroll666")
-    #
-    # print(json.dumps(result.__dict__, indent=4))
+#     connection = Neo4J().getConnection()
+#     twitterGraphDAO=TwitterGraphDAO(connection)
+#     graphService=GraphService(twitterGraphDAO)
+#     result=graphService.recommendTweets("rotnroll666")
+#
+#     print(result)
 
