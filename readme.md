@@ -116,3 +116,9 @@ IS_FIRST_TIME_USER – If True, runs the bootstrap step to generate INTERACTS an
 
 For questions or partnership opportunities, please reach out:  [olasubomiodekunle@gmail.com]()
 
+![Screenshot 2025-09-04 at 17.53.34.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.53.34.png)
+![Screenshot 2025-09-04 at 17.53.53.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.53.53.png)
+![Screenshot 2025-09-04 at 17.54.10.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.54.10.png)
+![Screenshot 2025-09-04 at 17.54.13.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.54.13.png)
+![Screenshot 2025-09-04 at 17.54.28.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.54.28.png)
+![Screenshot 2025-09-04 at 17.54.50.png](neo4j_demo_images/Screenshot%202025-09-04%20at%2017.54.50.png)
