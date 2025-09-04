@@ -19,7 +19,7 @@ class GraphService:
             self.TwitterGraphDAO.dropGraphProjection(graphName)
         self.TwitterGraphDAO.createGraphProjection(graphName,self.nodes,self.relationships)
         self.TwitterGraphDAO.createGraphEmbeddingWithfastRP(graphName,self.embeddingProperties)
-        recommendTweets= self.TwitterGraphDAO.getRecommendedTweetsForUser(userName)
+        recommendTweets= self.TwitterGraphDAO.getRecommendedTweetsForUser(userName,graphName)
         if not recommendTweets["similarTweets"].notnull().all():
             responseObject.setResponseStatus(False)
             responseObject.setResponseMessage("No Tweets")
@@ -50,13 +50,76 @@ class GraphService:
 
         return responseObject
 
+    def identifyTopCommunities(self,number_of_communities:int):
+        responseObject=ResponseObject()
+        try:
+            result=self.TwitterGraphDAO.identifyTopCommunitiesbySize(number_of_communities)
+            responseObject.setResponseStatus(True)
+            responseObject.setResponseMessage("Communities identified")
+            responseObject.setBody(result.to_json(orient='records'))
+        except Exception as e:
+            responseObject.setResponseStatus(False)
+            responseObject.setResponseMessage(f"Could not identify communities due to {e}")
+
+        return responseObject
+
+    def identifyMostImportantUser(self,k:int):
+        responseObject=ResponseObject()
+        try:
+            result=self.TwitterGraphDAO.identifyMostImportantUser(k)
+            responseObject.setResponseStatus(True)
+            responseObject.setResponseMessage("Important users identified.")
+            responseObject.setBody(result.to_json(orient='records'))
+        except Exception as e:
+            responseObject.setResponseStatus(False)
+            responseObject.setResponseMessage(f"Could not identify important users due to {e}")
+
+        return responseObject
+
+    def identifyMostInfluentialUser(self,k:int):
+        responseObject=ResponseObject()
+        try:
+            result=self.TwitterGraphDAO.identifyMostInfleuencialUser(k)
+            responseObject.setResponseStatus(True)
+            responseObject.setResponseMessage("Influential users identified.")
+            responseObject.setBody(result.to_json(orient='records'))
+        except Exception as e:
+            responseObject.setResponseStatus(False)
+            responseObject.setResponseMessage(f"Could not identify influential users due to {e}")
+
+        return responseObject
+
+    def identifyMostPopularUser(self,k:int):
+        responseObject=ResponseObject()
+        try:
+            result=self.TwitterGraphDAO.identifyMostPopoularUser(k)
+            responseObject.setResponseStatus(True)
+            responseObject.setResponseMessage("Popular users identified.")
+            responseObject.setBody(result.to_json(orient='records'))
+        except Exception as e:
+            responseObject.setResponseStatus(False)
+            responseObject.setResponseMessage(f"Could not identify popular users due to {e}")
+
+        return responseObject
+
+    def getUsers(self,k:int, sortBy:str ):
+        if sortBy.lower()=="importance":
+            return self.identifyMostImportantUser(k)
+        elif sortBy.lower()=="popularity":
+            return self.identifyMostPopularUser(k)
+        else:
+            return self.identifyMostInfluentialUser(k)
 
 
-# if __name__=="__main__":
-#     connection = Neo4J().getConnection()
-#     twitterGraphDAO=TwitterGraphDAO(connection)
-#     graphService=GraphService(twitterGraphDAO)
-#     result=graphService.recommendTweets("rotnroll666")
-#
-#     print(result)
+
+
+
+
+if __name__=="__main__":
+    connection = Neo4J().getConnection()
+    twitterGraphDAO=TwitterGraphDAO(connection)
+    graphService=GraphService(twitterGraphDAO)
+    result=graphService.recommendTweets("rotnroll666")
+
+    print(result)
 
