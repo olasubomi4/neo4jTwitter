@@ -1,29 +1,3 @@
-Twitter recommendation system
-
-The data used in this project can be gotten from neo4j sandbox environment https://github.com/neo4j-graph-examples/twitter-v2. 
-During data understanding phase I realised the data was one sided in the sense that I could not find bidirectional relationships between users, this is a problem because the neo4j graph data science algorithms requires users interaction to work effect hence that lead me to create the interacts realationship. 
-When the env IS_FIRST_TIME_USER is set the true the data preparation script that generates the interacts relationship is ran with other scripts for feature engineer which adds popularity, importance and influence score to each user.
-
-
-The goal of the project is to increase traffic on Twitter by:
-1 Recommending tweets to users based on their interactions and interests.
-2 Recommending potential followers to users to foster engagement and network growth.
-Domain Use Case:
-Twitter, as a social media platform, relies heavily on user interaction for sustained growth. By leveraging graph-based algorithms, we aim to:
-1 Identify influential and popular users in the network.
-2 Create communities based on user interactions.
-3 Suggest tweets and followers to users using graph embeddings and similarity measures.
-
-To Run the code 
-1. Make sure you have the twitter neo4j database setup from https://github.com/neo4j-graph-examples/twitter-v2.
-2. fill the environment variables
-3. install the requirements
-4. load the command below to start up flask `flask --app app run`
-5. load the following command to load to streamlit interface `streamlit run streamlit_app.py ` 
-
-
-if you have any question or partnership opportunities. Please email olasubomiodekunle@gmail.com
-
 
 # Twitter Recommendation System
 
